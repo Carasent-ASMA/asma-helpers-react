@@ -21,6 +21,7 @@ export * from './helpers/getSubdomain'
 export * from './helpers/useEffectOnce'
 export * from './helpers/clearCacheData'
 export * from './helpers/generateGenqlClient'
+export * from './helpers/base64ToFile'
 
 export * from './utility/fetch'
 
