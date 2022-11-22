@@ -1,5 +1,5 @@
 {
-    "name": "asma-app-lib-helpers",
+    "name": "asma-helpers-react",
     "version": "2.3.1",
     "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
     "main": "lib/index.js",
@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://avanssoma@dev.azure.com/avanssoma/Arbeidoginkludering/_git/asma-app-lib-helpers"
+        "url": "https://avanssoma@dev.azure.com/avanssoma/Arbeidoginkludering/_git/asma-helpers-react"
     },
     "keywords": [],
     "author": "",
