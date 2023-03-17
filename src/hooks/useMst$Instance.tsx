@@ -5,7 +5,7 @@ import type { IStateTreeNode } from 'mobx-state-tree'
  * @important
  *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wapp it in a new function with a unique name
  *
- * @var persist ?bool should be persisted to indexedDB default true
+ * @var do_not_persist ?bool should not be persisted to indexedDB default false
  * @var unique_name ?string if you need to have multiple instances of the same store with different data
  * @var initFn should return the MST store
  *
@@ -41,7 +41,7 @@ export function useMst$Instance<
 >(
     initFn: () => T,
     initIDBListenersOnMstSn: IFDB,
-    { persist = true, unique_name }: { persist?: boolean; unique_name?: string },
+    { do_not_persist = false, unique_name }: { do_not_persist?: boolean; unique_name?: string },
 ) {
     const [store] = useState(initFn)
 
@@ -49,7 +49,7 @@ export function useMst$Instance<
         /**
          * //TODO in case if there are multiple instances with same initFn.name need to check how we can make them unique dynamically
          */
-        if (!persist) return
+        if (do_not_persist) return
 
         const { unregisterAll } = initIDBListenersOnMstSn({ [initFn.name + unique_name]: store })
 
