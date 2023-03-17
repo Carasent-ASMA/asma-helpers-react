@@ -38,7 +38,11 @@ import type { IStateTreeNode } from 'mobx-state-tree'
 export function useMst$Instance<
     T extends IStateTreeNode,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
->(initFn: () => T, initIDBListenersOnMstSn: IFDB, persist = true, unique_name?: string) {
+>(
+    initFn: () => T,
+    initIDBListenersOnMstSn: IFDB,
+    { persist = true, unique_name }: { persist?: boolean; unique_name?: string },
+) {
     const [store] = useState(initFn)
 
     useEffect(() => {

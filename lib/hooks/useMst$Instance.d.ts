@@ -35,6 +35,9 @@ import type { IStateTreeNode } from 'mobx-state-tree';
 export declare function useMst$Instance<T extends IStateTreeNode, IFDB extends (store: object) => {
     unregisterAll: () => void;
     idb_check_promise: Promise<void>;
-}>(initFn: () => T, initIDBListenersOnMstSn: IFDB, persist?: boolean, unique_name?: string): T;
+}>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { persist, unique_name }: {
+    persist?: boolean;
+    unique_name?: string;
+}): T;
 export default useMst$Instance;
 //# sourceMappingURL=useMst$Instance.d.ts.map
