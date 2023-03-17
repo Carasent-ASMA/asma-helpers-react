@@ -35,7 +35,7 @@ import type { IStateTreeNode } from 'mobx-state-tree'
  *      }
  */
 /* @__PURE__ */
-export function useMst$Instance<
+export function useInstanceMst$<
     T extends IStateTreeNode,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
 >(
@@ -59,4 +59,4 @@ export function useMst$Instance<
     }, [])
     return store
 }
-export default useMst$Instance
+export default useInstanceMst$
