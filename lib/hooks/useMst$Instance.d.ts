@@ -35,7 +35,7 @@ import type { IStateTreeNode } from 'mobx-state-tree';
 export declare function useInstanceMst$<T extends IStateTreeNode, IFDB extends (store: object) => {
     unregisterAll: () => void;
     idb_check_promise: Promise<void>;
-}>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { do_not_persist, unique_index }: {
+}>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { unique_index, do_not_persist }: {
     unique_index: string;
     do_not_persist?: boolean;
 }): T;

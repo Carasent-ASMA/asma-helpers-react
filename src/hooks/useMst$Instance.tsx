@@ -41,7 +41,7 @@ export function useInstanceMst$<
 >(
     initFn: () => T,
     initIDBListenersOnMstSn: IFDB,
-    { do_not_persist = false, unique_index }: { unique_index: string; do_not_persist?: boolean },
+    { unique_index, do_not_persist = false }: { unique_index: string; do_not_persist?: boolean },
 ) {
     const [store] = useState(initFn)
 
