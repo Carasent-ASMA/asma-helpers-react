@@ -4,7 +4,7 @@ import type { IStateTreeNode } from 'mobx-state-tree';
  *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wapp it in a new function with a unique name
  *
  * @var do_not_persist ?bool should not be persisted to indexedDB default false
- * @var unique_index ?string if you need to have multiple instances of the same store with different data
+ * @var unique_index required string if you need to have multiple instances of the same store with different data
  * @var initFn should return the MST store
  *
  * @example
@@ -36,8 +36,8 @@ export declare function useInstanceMst$<T extends IStateTreeNode, IFDB extends (
     unregisterAll: () => void;
     idb_check_promise: Promise<void>;
 }>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { do_not_persist, unique_index }: {
+    unique_index: string;
     do_not_persist?: boolean;
-    unique_index?: string;
 }): T;
 export default useInstanceMst$;
 //# sourceMappingURL=useMst$Instance.d.ts.map
