@@ -3,3 +3,4 @@ export * from './helpers/UseOutsideClick'
 export * from './helpers/CreateInjectableContext'
 
 export * from './hooks/useWindowWidthSize.hook'
+export * from './hooks/useMst$Instance'

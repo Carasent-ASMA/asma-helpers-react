@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+/* @__PURE__ */
 export const useEffectOnce = (effect: () => void | (() => void), vars?: React.DependencyList) => {
     const destroyFunc = useRef<void | (() => void)>()
     const effectCalled = useRef(false)
