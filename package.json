@@ -1,6 +1,6 @@
 {
     "name": "asma-helpers-react",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
     "main": "lib/index.js",
     "types": "lib",
@@ -17,10 +17,11 @@
     "license": "MIT",
     "devDependencies": {
         "@types/react": "18.0.28",
-        "mobx-devtools-mst": "^0.9.30",
         "mobx-state-tree": "^5.1.8",
         "react": "^18.2.0",
         "typescript": "^5.0.4"
     },
-    "dependencies": {}
+    "dependencies": {
+        "mobx-devtools-mst": "^0.9.30"
+    }
 }
