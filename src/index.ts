@@ -4,4 +4,4 @@ export * from './helpers/CreateInjectableContext'
 export * from './helpers/lazyWithRetries'
 
 export * from './hooks/useWindowWidthSize.hook'
-export * from './hooks/useMst$Instance'
+export * from './hooks/useInstanceMst$'

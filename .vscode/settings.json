@@ -36,5 +36,5 @@
     "scss.validate": false, // Disable scss lint (optional if using scss)
     "explorer.decorations.badges": true,
     "explorer.decorations.colors": true,
-    "cSpell.words": ["jsxdev"]
+    "cSpell.words": ["IFDB", "Inspectable", "jsxdev"]
 }

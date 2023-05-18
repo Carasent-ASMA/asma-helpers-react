@@ -3,7 +3,7 @@ import type { IStateTreeNode } from 'mobx-state-tree'
 
 /**
  * @important
- *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wapp it in a new function with a unique name
+ *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wrap it in a new function with a unique name
  *
  * @var do_not_persist ?bool should not be persisted to indexedDB default false
  * @var unique_index required string if you need to have multiple instances of the same store with different data
@@ -12,7 +12,7 @@ import type { IStateTreeNode } from 'mobx-state-tree'
  * @example
  *
  *      function createAnonymousSchemaRoot$() {
- *          //optionally if you need to to have some predifined data in snapshot
+ *          #optionally if you need to to have some predefined data in snapshot
  *          const optionalSnapshot = {...}
  *
  *          const store = AnonymousSchemaRoot$.create(optionalSnapshot)
@@ -41,14 +41,21 @@ export function useInstanceMst$<
 >(
     initFn: () => T,
     initIDBListenersOnMstSn: IFDB,
-    { unique_index, do_not_persist = false }: { unique_index: string; do_not_persist?: boolean },
+    {
+        unique_index,
+        do_not_persist = false,
+        inspectable = false,
+    }: { unique_index: string; do_not_persist?: boolean; inspectable: boolean },
 ) {
     const [store] = useState(initFn)
 
     useEffect(() => {
         /**
-         * //TODO in case if there are multiple instances with same initFn.name need to check how we can make them unique dynamically
+         *
          */
+        if (inspectable) {
+            setMobxDevTools(store)
+        }
         if (do_not_persist) return
 
         const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}${initFn.name}`]: store })
@@ -58,5 +65,11 @@ export function useInstanceMst$<
         }
     }, [])
     return store
+}
+
+async function setMobxDevTools(store: IStateTreeNode) {
+    const makeInspectable = (await import('mobx-devtools-mst')).default
+
+    makeInspectable(store)
 }
 export default useInstanceMst$
