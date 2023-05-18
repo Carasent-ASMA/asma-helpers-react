@@ -35,6 +35,7 @@ import type { IStateTreeNode } from 'mobx-state-tree'
  *      }
  */
 /* @__PURE__ */
+const asma_debug = !!localStorage.getItem('asma-debug')
 export function useInstanceMst$<
     T extends IStateTreeNode,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
@@ -53,9 +54,11 @@ export function useInstanceMst$<
         /**
          *
          */
-        if (inspectable) {
+
+        if (inspectable || asma_debug) {
             setMobxDevTools(store)
         }
+
         if (do_not_persist) return
 
         const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}${initFn.name}`]: store })

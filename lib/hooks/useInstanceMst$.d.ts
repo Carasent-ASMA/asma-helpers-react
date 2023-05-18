@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import type { IStateTreeNode } from 'mobx-state-tree';
 /**
  * @important
- *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wapp it in a new function with a unique name
+ *      initFn.name must be unique please do not use anonymous functions or .create() from MST but rather wrap it in a new function with a unique name
  *
  * @var do_not_persist ?bool should not be persisted to indexedDB default false
  * @var unique_index required string if you need to have multiple instances of the same store with different data
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
  * @example
  *
  *      function createAnonymousSchemaRoot$() {
- *          //optionally if you need to to have some predifined data in snapshot
+ *          #optionally if you need to to have some predefined data in snapshot
  *          const optionalSnapshot = {...}
  *
  *          const store = AnonymousSchemaRoot$.create(optionalSnapshot)
@@ -32,21 +32,13 @@ import { useEffect, useState } from 'react';
  *      ...
  *      }
  */
-/* @__PURE__ */
-export function useInstanceMst$(initFn, initIDBListenersOnMstSn, { unique_index, do_not_persist = false }) {
-    const [store] = useState(initFn);
-    useEffect(() => {
-        /**
-         * //TODO in case if there are multiple instances with same initFn.name need to check how we can make them unique dynamically
-         */
-        if (do_not_persist)
-            return;
-        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}${initFn.name}`]: store });
-        return () => {
-            unregisterAll();
-        };
-    }, []);
-    return store;
-}
+export declare function useInstanceMst$<T extends IStateTreeNode, IFDB extends (store: object) => {
+    unregisterAll: () => void;
+    idb_check_promise: Promise<void>;
+}>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { unique_index, do_not_persist, inspectable, }: {
+    unique_index: string;
+    do_not_persist?: boolean;
+    inspectable: boolean;
+}): T;
 export default useInstanceMst$;
-//# sourceMappingURL=useMst$Instance.js.map
+//# sourceMappingURL=useInstanceMst$.d.ts.map
