@@ -4,4 +4,5 @@ export * from './helpers/CreateInjectableContext';
 export * from './helpers/lazyWithRetries';
 export * from './hooks/useWindowWidthSize.hook';
 export * from './hooks/useInstanceMst$';
+export * from './hooks/useUserContext';
 //# sourceMappingURL=index.d.ts.map
