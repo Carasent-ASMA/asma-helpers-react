@@ -1,10 +1,8 @@
 import type { IUserContext } from 'asma-types';
-import type { History } from 'history';
-type IUseUserContext = {
-    callback: (user_context: IUserContext) => void;
-    getUserContext: () => IUserContext;
-    history: History;
+type IUserContextStore = {
+    user_context: IUserContext;
+    onChangeUserContext: (user_context: IUserContext) => void;
 };
-export declare const useUserContext: ({ callback, history, getUserContext }: IUseUserContext) => void;
+export declare function useUserContext(store: IUserContextStore): void;
 export {};
 //# sourceMappingURL=useUserContext.d.ts.map

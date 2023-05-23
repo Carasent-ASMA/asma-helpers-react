@@ -1,19 +1,20 @@
+import { useHistoryListen } from './useHistoryListen'
 import type { IUserContext } from 'asma-types'
-import { useEffect } from 'react'
-import type { History } from 'history'
-type IUseUserContext = {
-    callback: (user_context: IUserContext) => void
-    getUserContext: () => IUserContext
-    history: History
+type IUserContextStore = {
+    user_context: IUserContext
+    onChangeUserContext: (user_context: IUserContext) => void
 }
-export const useUserContext = ({ callback, history, getUserContext }: IUseUserContext) => {
-    useEffect(() => {
-        const unListenModuleHistory = history.listen(() => {
-            callback(getUserContext())
-        })
-
-        return () => {
-            unListenModuleHistory()
-        }
-    }, [])
+export function useUserContext(store: IUserContextStore) {
+    useHistoryListen({
+        callback: (listener) => {
+            const new_user_context = new URLSearchParams(listener.location.search).get('user_context')
+            if (
+                new_user_context &&
+                new_user_context in (['ME', 'RECIPIENT'] as IUserContext[]) &&
+                store.user_context !== new_user_context
+            ) {
+                store.onChangeUserContext(new_user_context as IUserContext)
+            }
+        },
+    })
 }
