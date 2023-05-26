@@ -73,6 +73,11 @@ export function useInstanceMst$<
 async function setMobxDevTools(store: IStateTreeNode) {
     const makeInspectable = (await import('mobx-devtools-mst')).default
 
+    if (!makeInspectable) {
+        console.warn('mobx-devtools-mst is not installed')
+
+        return
+    }
     makeInspectable(store)
 }
 export default useInstanceMst$
