@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Action, type History, type Listener } from 'history'
+import { type History, type Listener } from 'history'
 declare global {
     interface Window {
         __ASMA__SHELL__?: {
