@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { IStateTreeNode } from 'mobx-state-tree'
+import type MakeInspectable from 'mobx-devtools-mst'
 
 /**
  * @important
@@ -46,7 +47,13 @@ export function useInstanceMst$<
         unique_index,
         do_not_persist = false,
         inspectable = false,
-    }: { unique_index: string; do_not_persist?: boolean; inspectable: boolean },
+        mobxDevtoolsMst,
+    }: {
+        unique_index: string
+        do_not_persist?: boolean
+        inspectable: boolean
+        mobxDevtoolsMst: () => Promise<{ default: typeof MakeInspectable }>
+    },
 ) {
     const [store] = useState(initFn)
 
@@ -56,7 +63,7 @@ export function useInstanceMst$<
          */
 
         if (inspectable || asma_debug) {
-            setMobxDevTools(store)
+            setMobxDevTools(store, mobxDevtoolsMst)
         }
 
         if (do_not_persist) return
@@ -70,8 +77,11 @@ export function useInstanceMst$<
     return store
 }
 
-async function setMobxDevTools(store: IStateTreeNode) {
-    const makeInspectable = (await import('mobx-devtools-mst')).default
+async function setMobxDevTools(
+    store: IStateTreeNode,
+    mobx_devTools_mst?: () => Promise<{ default: typeof MakeInspectable }>,
+) {
+    const makeInspectable = (await mobx_devTools_mst?.())?.default
 
     if (!makeInspectable) {
         console.warn('mobx-devtools-mst is not installed')
