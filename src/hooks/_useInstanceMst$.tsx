@@ -37,7 +37,13 @@ import type MakeInspectable from 'mobx-devtools-mst'
  */
 /* @__PURE__ */
 const asma_debug = !!localStorage.getItem('asma-debug')
-export function useInstanceMst$<
+
+/**
+ * @deprecated will be removed in next major version use _useInstanceMst$ instead
+ */
+export const useInstanceMst$ = _useInstanceMst$
+
+export function _useInstanceMst$<
     T extends IStateTreeNode,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
 >(
@@ -90,4 +96,4 @@ async function setMobxDevTools(
     }
     makeInspectable(store)
 }
-export default useInstanceMst$
+export default _useInstanceMst$

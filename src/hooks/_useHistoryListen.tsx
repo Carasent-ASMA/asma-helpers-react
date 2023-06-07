@@ -18,7 +18,7 @@ type IUseUserContext = {
     immediate_callback?: boolean
 }
 
-export function useHistoryListen({ callback, history, immediate_callback }: IUseUserContext) {
+export function _useHistoryListen({ callback, history, immediate_callback }: IUseUserContext) {
     useEffect(() => {
         history = gHistory || history
 
