@@ -9,7 +9,7 @@ type IUseUserContext = {
     store: IUserContextStore
     sideEffect?: (update: Update) => void
 }
-export function useUserContext({ sideEffect, store }: IUseUserContext) {
+export function _useUserContext({ sideEffect, store }: IUseUserContext) {
     useHistoryListen({
         callback: (listener) => {
             const new_user_context = new URLSearchParams(listener.location.search).get('user_context')

@@ -8,6 +8,6 @@ type IUseUserContext = {
     store: IUserContextStore;
     sideEffect?: (update: Update) => void;
 };
-export declare function useUserContext({ sideEffect, store }: IUseUserContext): void;
+export declare function _useUserContext({ sideEffect, store }: IUseUserContext): void;
 export {};
 //# sourceMappingURL=useUserContext.d.ts.map
