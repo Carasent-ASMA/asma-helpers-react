@@ -1,4 +1,4 @@
-import type { Update } from 'history'
+import type { Update, History } from 'history'
 import { _useHistoryListen } from './_useHistoryListen'
 import type { IUserContext } from 'asma-types'
 type IUserContextStore = {
@@ -8,8 +8,10 @@ type IUserContextStore = {
 type IUseUserContext = {
     store: IUserContextStore
     sideEffect?: (update: Update) => void
+    history?: History
+    immediate_callback?: boolean
 }
-export function _useUserContext({ sideEffect, store }: IUseUserContext) {
+export function _useUserContext({ sideEffect, store, history, immediate_callback }: IUseUserContext) {
     _useHistoryListen({
         callback: (listener) => {
             const new_user_context = new URLSearchParams(listener.location.search).get('user_context')
@@ -22,5 +24,7 @@ export function _useUserContext({ sideEffect, store }: IUseUserContext) {
             }
             sideEffect?.(listener)
         },
+        immediate_callback,
+        history,
     })
 }
