@@ -1,6 +1,6 @@
 {
     "name": "asma-helpers-react",
-    "version": "0.1.13",
+    "version": "0.2.0",
     "description": "TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.",
     "main": "lib/index.js",
     "types": "lib",
