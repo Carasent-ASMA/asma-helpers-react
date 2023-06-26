@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { onSnapshot, type IStateTreeNode, type IDisposer, type IModelType } from 'mobx-state-tree'
+import { onSnapshot, type IStateTreeNode, type IDisposer } from 'mobx-state-tree'
 import type MakeInspectable from 'mobx-devtools-mst'
 
 /**
@@ -45,28 +45,29 @@ export const useInstanceMst$ = _useInstanceMst$
 
 export function _useInstanceMst$<
     T extends IStateTreeNode,
-    M extends Pick<IModelType<any, any>, 'name'>,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
 >(
-    init_tuple: [initFn: () => T, mstModel: M],
+    initFn: () => T,
     initIDBListenersOnMstSn: IFDB,
     {
         unique_index,
         do_not_persist = false,
         inspectable = false,
         mobxDevtoolsMst,
-        openreplayMobxObserver,
+        getOpenReplayObject,
     }: {
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean
         mobxDevtoolsMst: () => Promise<{ default: typeof MakeInspectable }>
-        openreplayMobxObserver:
-            | ((ev: { type: string; name: string; object: any; debugObjectName: string }) => void)
-            | undefined
+        getOpenReplayObject: () => {
+            mobxObserver:
+                | ((ev: { type: string; name: string; object: any; debugObjectName: string }) => void)
+                | undefined
+        }
     },
 ) {
-    const [store] = useState(init_tuple[0])
+    const [store] = useState(initFn)
 
     useEffect(() => {
         /**
@@ -79,20 +80,22 @@ export function _useInstanceMst$<
 
         let dispose: IDisposer | undefined
 
-        if (openreplayMobxObserver) {
+        const mobxObserver = getOpenReplayObject().mobxObserver
+
+        if (mobxObserver) {
             dispose = onSnapshot(store, (snapshot) => {
-                openreplayMobxObserver({
+                mobxObserver({
                     type: 'snapshot',
-                    name: init_tuple[1].name,
+                    name: initFn.name,
                     object: snapshot,
-                    debugObjectName: init_tuple[1].name,
+                    debugObjectName: initFn.name,
                 })
             })
         }
 
         if (do_not_persist) return
 
-        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}-${init_tuple[1].name}`]: store })
+        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}-${initFn.name}`]: store })
 
         return () => {
             unregisterAll()
