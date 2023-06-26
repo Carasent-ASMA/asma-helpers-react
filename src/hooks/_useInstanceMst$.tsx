@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { IStateTreeNode } from 'mobx-state-tree'
+import { onSnapshot, type IStateTreeNode, type IDisposer, type IModelType } from 'mobx-state-tree'
 import type MakeInspectable from 'mobx-devtools-mst'
 
 /**
@@ -45,23 +45,28 @@ export const useInstanceMst$ = _useInstanceMst$
 
 export function _useInstanceMst$<
     T extends IStateTreeNode,
+    M extends Pick<IModelType<any, any>, 'name'>,
     IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
 >(
-    initFn: () => T,
+    init_tuple: [initFn: () => T, mstModel: M],
     initIDBListenersOnMstSn: IFDB,
     {
         unique_index,
         do_not_persist = false,
         inspectable = false,
         mobxDevtoolsMst,
+        openreplayMobxObserver,
     }: {
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean
         mobxDevtoolsMst: () => Promise<{ default: typeof MakeInspectable }>
+        openreplayMobxObserver:
+            | ((ev: { type: string; name: string; object: any; debugObjectName: string }) => void)
+            | undefined
     },
 ) {
-    const [store] = useState(initFn)
+    const [store] = useState(init_tuple[0])
 
     useEffect(() => {
         /**
@@ -72,12 +77,26 @@ export function _useInstanceMst$<
             setMobxDevTools(store, mobxDevtoolsMst)
         }
 
+        let dispose: IDisposer | undefined
+
+        if (openreplayMobxObserver) {
+            dispose = onSnapshot(store, (snapshot) => {
+                openreplayMobxObserver({
+                    type: 'snapshot',
+                    name: init_tuple[1].name,
+                    object: snapshot,
+                    debugObjectName: init_tuple[1].name,
+                })
+            })
+        }
+
         if (do_not_persist) return
 
-        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}${initFn.name}`]: store })
+        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}-${init_tuple[1].name}`]: store })
 
         return () => {
             unregisterAll()
+            dispose?.()
         }
     }, [])
     return store
