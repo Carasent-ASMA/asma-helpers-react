@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { onSnapshot, type IStateTreeNode, type IDisposer } from 'mobx-state-tree'
+import { onSnapshot, type IStateTreeNode, type IDisposer, isStateTreeNode, applySnapshot } from 'mobx-state-tree'
 import type MakeInspectable from 'mobx-devtools-mst'
 
 /**
@@ -43,19 +43,21 @@ const asma_debug = !!localStorage.getItem('asma-debug')
  */
 export const useInstanceMst$ = _useInstanceMst$
 
-export function _useInstanceMst$<
-    T extends IStateTreeNode,
-    IFDB extends (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> },
->(
+type IFDBFn = (store: object) => { unregisterAll: () => void; idb_check_promise: Promise<void> }
+export function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(
     initFn: () => T,
     initIDBListenersOnMstSn: IFDB,
     {
         unique_index,
         do_not_persist = false,
         inspectable = false,
+        storage = 'indexedDB',
         mobxDevtoolsMst,
         getOpenReplayObject,
+        persist_keys,
     }: {
+        persist_keys?: (keyof T)[]
+        storage: 'localStorage' | 'indexedDB'
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean
@@ -95,14 +97,83 @@ export function _useInstanceMst$<
 
         if (do_not_persist) return
 
-        const { unregisterAll } = initIDBListenersOnMstSn({ [`${unique_index}-${initFn.name}`]: store })
+        const unregister = initPersist({
+            initIDBListenersOnMstSn,
+            storage,
+            initFn_name: initFn.name,
+            unique_index,
+            persist_keys,
+            store,
+        })
 
         return () => {
-            unregisterAll()
+            unregister.forEach((fn) => fn())
             dispose?.()
         }
     }, [])
     return store
+}
+
+function initPersist<T extends IStateTreeNode>(props: {
+    storage: 'localStorage' | 'indexedDB'
+    initIDBListenersOnMstSn: IFDBFn
+    store: T
+    persist_keys?: (keyof T)[]
+    unique_index: string
+    initFn_name: string
+}) {
+    const { store, persist_keys, storage, initFn_name, unique_index } = props
+
+    const unregister: (() => void)[] = []
+
+    const onSnapshotCall = (store: IStateTreeNode, key?: string) => {
+        const key_name = key ? `${unique_index}-${initFn_name}-${key}` : `${unique_index}-${initFn_name}`
+
+        if (props.storage === 'localStorage') {
+            const unReg = onSnapshot(store, () => {
+                localStorage.setItem(key_name, JSON.stringify(store))
+            })
+
+            unregister.push(unReg)
+
+            const lsItem = localStorage.getItem(key_name)
+
+            if (lsItem) {
+                try {
+                    const parsed = JSON.parse(lsItem)
+
+                    if (parsed) {
+                        applySnapshot(store, parsed)
+                    }
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+        } else if (props.storage === 'indexedDB') {
+            const { unregisterAll } = props.initIDBListenersOnMstSn({
+                [key_name]: store,
+            })
+
+            unregister.push(unregisterAll)
+        }
+    }
+    if (!persist_keys) {
+        if (storage === 'localStorage') {
+            onSnapshotCall(store)
+        } else {
+        }
+    } else {
+        persist_keys.forEach((key) => {
+            const subStore = store[key]
+
+            if (isStateTreeNode(subStore) && typeof key === 'string') {
+                if (storage === 'localStorage') {
+                    onSnapshotCall(subStore, key)
+                }
+            }
+        })
+    }
+    return unregister
 }
 
 async function setMobxDevTools(
