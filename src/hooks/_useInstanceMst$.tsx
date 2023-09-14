@@ -57,7 +57,7 @@ export function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(
         persist_keys,
     }: {
         persist_keys?: (keyof T)[]
-        storage: 'localStorage' | 'indexedDB'
+        storage?: 'localStorage' | 'indexedDB'
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean

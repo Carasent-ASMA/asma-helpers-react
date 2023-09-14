@@ -10,7 +10,7 @@ type IFDBFn = (store: object) => {
 };
 export declare function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(initFn: () => T, initIDBListenersOnMstSn: IFDB, { unique_index, do_not_persist, inspectable, storage, mobxDevtoolsMst, getOpenReplayObject, persist_keys, }: {
     persist_keys?: (keyof T)[];
-    storage: 'localStorage' | 'indexedDB';
+    storage?: 'localStorage' | 'indexedDB';
     unique_index: string;
     do_not_persist?: boolean;
     inspectable: boolean;
