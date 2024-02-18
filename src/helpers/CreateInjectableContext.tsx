@@ -1,6 +1,5 @@
 import type React from 'react'
 import { createContext, type FC, useContext } from 'react'
-/* @__PURE__ */
 export function createInjectableContext<T>() {
     const storeContext = createContext<T | null>(null)
 

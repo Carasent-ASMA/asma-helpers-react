@@ -35,7 +35,6 @@ import type MakeInspectable from 'mobx-devtools-mst'
  *      ...
  *      }
  */
-/* @__PURE__ */
 const asma_debug = !!localStorage.getItem('asma-debug')
 
 /**

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-/* @__PURE__ */
 export function useWindowWidthSize(): number | undefined {
     const [windowWidthSize, setWindowWidthSize] = useState<number | undefined>(undefined)
     useEffect(() => {
