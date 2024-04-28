@@ -5,12 +5,15 @@ declare global {
         __ASMA__SHELL__?: {
             history?: History
         }
+        rawWindow?: typeof window
     }
 }
 /**
  * history is instantiated in asma-helpers and there is declared globally
  */
-const gHistory = window.__ASMA__SHELL__?.history
+export const realWindow = window.rawWindow || window
+
+const gHistory = realWindow.__ASMA__SHELL__?.history
 
 type IUseUserContext = {
     callback: Listener
