@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { realWindow } from './_useHistoryListen'
+import { realWindow } from './_useHistoryListen.js'
 export function useWindowWidthSize(): number | undefined {
     const [windowWidthSize, setWindowWidthSize] = useState<number | undefined>(undefined)
     useEffect(() => {
