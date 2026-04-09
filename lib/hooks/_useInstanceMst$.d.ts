@@ -1,5 +1,5 @@
 import { type IStateTreeNode } from 'mobx-state-tree';
-import type MakeInspectable from 'mobx-devtools-mst';
+type MakeInspectable = (store: IStateTreeNode) => void;
 /**
  * @deprecated will be removed in next major version use _useInstanceMst$ instead
  */
@@ -15,7 +15,7 @@ export declare function _useInstanceMst$<T extends IStateTreeNode, IFDB extends 
     do_not_persist?: boolean;
     inspectable: boolean;
     mobxDevtoolsMst: () => Promise<{
-        default: typeof MakeInspectable;
+        default: MakeInspectable;
     }>;
     getOpenReplayObject: () => {
         mobxObserver: ((ev: {

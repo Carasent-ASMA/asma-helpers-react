@@ -12,22 +12,25 @@
     "types": "lib/index.d.ts",
     "type": "module",
     "scripts": {
-        "build": "npx tsc && npx tsc -p ."
+        "build": "pnpm exec tsc -p ."
     },
     "repository": {
         "type": "git",
-        "url": "https://avanssoma@dev.azure.com/avanssoma/Arbeidoginkludering/_git/asma-helpers-react"
+        "url": "git@github.com:Carasent-ASMA/asma-helpers-react.git"
     },
     "keywords": [],
     "author": "",
     "license": "MIT",
+    "peerDependencies": {
+        "mobx-state-tree": ">=5.1.8 <8",
+        "react": "^18.2.0 || ^19.0.0"
+    },
     "devDependencies": {
-        "@types/react": "18.0.28",
+        "@types/react": "^19.2.14",
         "asma-types": "^2.0.54",
         "history": "^5.3.0",
-        "mobx-devtools-mst": "^0.9.30",
-        "mobx-state-tree": "^5.1.8",
-        "react": "^18.2.0",
-        "typescript": "^5.0.4"
+        "mobx-state-tree": ">=5.1.8 <8",
+        "react": "^19.2.0",
+        "typescript": "^6.0.2"
     }
 }

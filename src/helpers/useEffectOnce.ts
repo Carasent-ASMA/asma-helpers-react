@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 export const useEffectOnce = (effect: () => void | (() => void), vars?: React.DependencyList) => {
-    const destroyFunc = useRef<void | (() => void)>()
+    const destroyFunc = useRef<void | (() => void)>(undefined)
     const effectCalled = useRef(false)
     const renderAfterCalled = useRef(false)
     const [_, setVal] = useState<number>(0)

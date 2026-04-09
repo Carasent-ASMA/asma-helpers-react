@@ -9,26 +9,26 @@ importers:
   .:
     devDependencies:
       '@types/react':
-        specifier: 18.0.28
-        version: 18.0.28
+        specifier: ^19.2.14
+        version: 19.2.14
       asma-types:
         specifier: ^2.0.54
         version: 2.0.54
       history:
         specifier: ^5.3.0
         version: 5.3.0
-      mobx-devtools-mst:
-        specifier: ^0.9.30
-        version: 0.9.30(mobx-state-tree@5.1.8)
+      mobx:
+        specifier: ^6.13.7
+        version: 6.15.0
       mobx-state-tree:
-        specifier: ^5.1.8
-        version: 5.1.8
+        specifier: '>=5.1.8 <8'
+        version: 5.1.8(mobx@6.15.0)
       react:
-        specifier: ^18.2.0
-        version: 18.2.0
+        specifier: ^19.2.0
+        version: 19.2.5
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^6.0.2
+        version: 6.0.2
 
 packages:
 
@@ -36,52 +36,36 @@ packages:
     resolution: {integrity: sha512-XsDuspWKLUsxwCp6r7EhsExHtYfbe5oAGQ19kqngTdCPUoPQzOPdUbD/pB9PJiwb2ptYKQDjSJT3R6dC+EPqfQ==}
     engines: {node: '>=6.9.0'}
 
-  '@types/prop-types@15.7.5':
-    resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-
-  '@types/react@18.0.28':
-    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
-
-  '@types/scheduler@0.16.3':
-    resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
+  '@types/react@19.2.14':
+    resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
   asma-types@2.0.54:
     resolution: {integrity: sha512-SKzjw1nPAEJA3MBVicDzBVnQQwt5VT5npYCNBMPnXky2ZKnn3eWk8qpIxlooAbR/3xljnkFyycAkxstX1RZHdw==}
 
-  csstype@3.1.2:
-    resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   history@5.3.0:
     resolution: {integrity: sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==}
-
-  js-tokens@4.0.0:
-    resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-
-  loose-envify@1.4.0:
-    resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
-
-  mobx-devtools-mst@0.9.30:
-    resolution: {integrity: sha512-6fIYeFG4xT4syIeKddmK55zQbc3ZZZr/272/cCbfaAAM5YiuFdteGZGUgdsz8wxf/mGxWZbFOM3WmASAnpwrbw==}
-    peerDependencies:
-      mobx: ^2.2.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
-      mobx-state-tree: '*'
 
   mobx-state-tree@5.1.8:
     resolution: {integrity: sha512-oe82BNgMr408e6DxMDNat8msXQTuyuqzJ97DPupbhchEfjjHyjsmPSwtXHl+nXiW3tybpb/cr5siUClBqKqv+Q==}
     peerDependencies:
       mobx: ^6.3.0
 
-  react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+  mobx@6.15.0:
+    resolution: {integrity: sha512-UczzB+0nnwGotYSgllfARAqWCJ5e/skuV2K/l+Zyck/H6pJIhLXuBnz+6vn2i211o7DtbE78HQtsYEKICHGI+g==}
+
+  react@19.2.5:
+    resolution: {integrity: sha512-llUJLzz1zTUBrskt2pwZgLq59AemifIftw4aB7JxOqf1HY2FDaGDxgwpAPVzHU1kdWabH7FauP4i1oEeer2WCA==}
     engines: {node: '>=0.10.0'}
 
   regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
-  typescript@5.0.4:
-    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
-    engines: {node: '>=12.20'}
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
 snapshots:
@@ -90,40 +74,26 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.13.11
 
-  '@types/prop-types@15.7.5': {}
-
-  '@types/react@18.0.28':
+  '@types/react@19.2.14':
     dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.3
-      csstype: 3.1.2
-
-  '@types/scheduler@0.16.3': {}
+      csstype: 3.2.3
 
   asma-types@2.0.54: {}
 
-  csstype@3.1.2: {}
+  csstype@3.2.3: {}
 
   history@5.3.0:
     dependencies:
       '@babel/runtime': 7.22.3
 
-  js-tokens@4.0.0: {}
-
-  loose-envify@1.4.0:
+  mobx-state-tree@5.1.8(mobx@6.15.0):
     dependencies:
-      js-tokens: 4.0.0
+      mobx: 6.15.0
 
-  mobx-devtools-mst@0.9.30(mobx-state-tree@5.1.8):
-    dependencies:
-      mobx-state-tree: 5.1.8
+  mobx@6.15.0: {}
 
-  mobx-state-tree@5.1.8: {}
-
-  react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
+  react@19.2.5: {}
 
   regenerator-runtime@0.13.11: {}
 
-  typescript@5.0.4: {}
+  typescript@6.0.2: {}

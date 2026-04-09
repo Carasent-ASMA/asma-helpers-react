@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { onSnapshot, type IStateTreeNode, type IDisposer, isStateTreeNode, applySnapshot } from 'mobx-state-tree'
-import type MakeInspectable from 'mobx-devtools-mst'
+
+type MakeInspectable = (store: IStateTreeNode) => void
 
 /**
  * @important
@@ -60,7 +61,7 @@ export function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean
-        mobxDevtoolsMst: () => Promise<{ default: typeof MakeInspectable }>
+        mobxDevtoolsMst: () => Promise<{ default: MakeInspectable }>
         getOpenReplayObject: () => {
             mobxObserver:
                 | ((ev: { type: string; name: string; object: any; debugObjectName: string }) => void)
@@ -177,7 +178,7 @@ function initPersist<T extends IStateTreeNode>(props: {
 
 async function setMobxDevTools(
     store: IStateTreeNode,
-    mobx_devTools_mst?: () => Promise<{ default: typeof MakeInspectable }>,
+    mobx_devTools_mst?: () => Promise<{ default: MakeInspectable }>,
 ) {
     const makeInspectable = (await mobx_devTools_mst?.())?.default
 
