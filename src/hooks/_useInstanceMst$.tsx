@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { onSnapshot, type IStateTreeNode, type IDisposer, isStateTreeNode, applySnapshot } from 'mobx-state-tree'
 
 type MakeInspectable = (store: IStateTreeNode) => void
+type MakeInspectableModule = {
+    default?: MakeInspectable | MakeInspectableModule
+    mobxDevtoolsMST?: MakeInspectable
+}
 
 /**
  * @important
@@ -61,7 +65,7 @@ export function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(
         unique_index: string
         do_not_persist?: boolean
         inspectable: boolean
-        mobxDevtoolsMst: () => Promise<{ default: MakeInspectable }>
+        mobxDevtoolsMst: () => Promise<MakeInspectableModule>
         getOpenReplayObject: () => {
             mobxObserver:
                 | ((ev: { type: string; name: string; object: any; debugObjectName: string }) => void)
@@ -178,9 +182,10 @@ function initPersist<T extends IStateTreeNode>(props: {
 
 async function setMobxDevTools(
     store: IStateTreeNode,
-    mobx_devTools_mst?: () => Promise<{ default: MakeInspectable }>,
+    mobx_devTools_mst?: () => Promise<MakeInspectableModule>,
 ) {
-    const makeInspectable = (await mobx_devTools_mst?.())?.default
+    const module = await mobx_devTools_mst?.()
+    const makeInspectable = resolveMakeInspectable(module)
 
     if (!makeInspectable) {
         console.warn('mobx-devtools-mst is not installed')
@@ -188,5 +193,35 @@ async function setMobxDevTools(
         return
     }
     makeInspectable(store)
+}
+
+function resolveMakeInspectable(module?: MakeInspectableModule): MakeInspectable | undefined {
+    if (!module) {
+        return undefined
+    }
+
+    if (typeof module === 'function') {
+        return module
+    }
+
+    if (typeof module.default === 'function') {
+        return module.default
+    }
+
+    if (module.default && typeof module.default === 'object') {
+        if (typeof module.default.default === 'function') {
+            return module.default.default
+        }
+
+        if (typeof module.default.mobxDevtoolsMST === 'function') {
+            return module.default.mobxDevtoolsMST
+        }
+    }
+
+    if (typeof module.mobxDevtoolsMST === 'function') {
+        return module.mobxDevtoolsMST
+    }
+
+    return undefined
 }
 export default _useInstanceMst$
