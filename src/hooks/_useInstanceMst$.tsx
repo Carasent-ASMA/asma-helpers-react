@@ -111,10 +111,23 @@ export function _useInstanceMst$<T extends IStateTreeNode, IFDB extends IFDBFn>(
         })
 
         return () => {
-            unregister.forEach((fn) => fn())
+            unregister.forEach((fn) => {
+                fn()
+            })
             dispose?.()
         }
-    }, [])
+    }, [
+        do_not_persist,
+        getOpenReplayObject,
+        initFn.name,
+        initIDBListenersOnMstSn,
+        inspectable,
+        mobxDevtoolsMst,
+        persist_keys,
+        storage,
+        unique_index,
+        store,
+    ])
     return store
 }
 
@@ -180,10 +193,7 @@ function initPersist<T extends IStateTreeNode>(props: {
     return unregister
 }
 
-async function setMobxDevTools(
-    store: IStateTreeNode,
-    mobx_devTools_mst?: () => Promise<MakeInspectableModule>,
-) {
+async function setMobxDevTools(store: IStateTreeNode, mobx_devTools_mst?: () => Promise<MakeInspectableModule>) {
     const module = await mobx_devTools_mst?.()
     const makeInspectable = resolveMakeInspectable(module)
 
