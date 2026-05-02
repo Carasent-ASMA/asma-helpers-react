@@ -7,9 +7,6 @@ export function createInjectableContext<T>() {
         return <storeContext.Provider value={store}>{children}</storeContext.Provider>
     }
 
-    /* const StoreProvider: FC = ({ children }) => (
-        <CreateStoreProvider root_store={root_store}>{children}</CreateStoreProvider>
-    ) */
     const useStore = (): T => {
         const store = useContext(storeContext)
         if (!store) {
