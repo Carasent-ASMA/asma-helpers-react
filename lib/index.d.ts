@@ -2,4 +2,6 @@ export * from './helpers/CreateInjectableContext.js';
 export * from './helpers/lazyWithRetries.js';
 export * from './hooks/_useInstanceMst$.js';
 export * from './hooks/_useHistoryListen.js';
+export * from './hooks/useHideParam.js';
+export * from './hooks/useParam.js';
 //# sourceMappingURL=index.d.ts.map
