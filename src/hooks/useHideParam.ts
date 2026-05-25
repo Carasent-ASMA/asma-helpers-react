@@ -1,10 +1,8 @@
-import { history } from 'asma-core-helpers/lib'
+import { history, subscribeToHistory } from 'asma-core-helpers'
 import { useSyncExternalStore } from 'react'
 
 let cachedHide: string[] | null = null
 let cachedHideRaw: string | null = null
-
-const subscribeToHistory = (listener: () => void) => history.listen(listener)
 
 const getHideSnapshot = (): string[] | null => {
     const raw = new URLSearchParams(history.location.search).get('hide')

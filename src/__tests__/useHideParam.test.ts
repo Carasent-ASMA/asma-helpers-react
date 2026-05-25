@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('asma-core-helpers/lib', async () => {
-    const { testHistory } = await import('./testHistory')
+vi.mock('asma-core-helpers', async () => {
+    const { testHistory, subscribeToHistory } = await import('./testHistory')
     return {
         getParamByName: (name: string): string | string[] | null => {
             const params = new URLSearchParams(testHistory.location.search)
@@ -13,6 +13,7 @@ vi.mock('asma-core-helpers/lib', async () => {
             return value
         },
         history: testHistory,
+        subscribeToHistory,
     }
 })
 
