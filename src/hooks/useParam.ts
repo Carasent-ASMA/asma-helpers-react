@@ -1,10 +1,8 @@
-import { getParamByName, history } from 'asma-core-helpers/lib'
+import { getParamByName, subscribeToHistory } from 'asma-core-helpers'
 import type { ISearchParams, SearchParamWithValues } from 'asma-types'
 import { useCallback, useSyncExternalStore } from 'react'
 
-type ParamValue<K extends ISearchParams> = (typeof SearchParamWithValues)[K] | null
-
-const subscribeToHistory = (listener: () => void) => history.listen(listener)
+export type ParamValue<K extends ISearchParams> = (typeof SearchParamWithValues)[K] | null
 
 /**
  * Returns the current value of a URL search parameter, reactive to navigation.

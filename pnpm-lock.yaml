@@ -18,8 +18,8 @@ importers:
         specifier: ^19.2.14
         version: 19.2.14
       asma-core-helpers:
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@6.0.2)
+        specifier: ^0.6.2
+        version: 0.6.2(typescript@6.0.2)
       asma-types:
         specifier: ^2.0.54
         version: 2.0.54
@@ -322,8 +322,8 @@ packages:
   aria-query@5.3.0:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
 
-  asma-core-helpers@0.6.0:
-    resolution: {integrity: sha512-r05gKPtvTre3riXXGzVdEpC26FFcvaR/yTdiPipDlyaCvCPZ2XjjgL4yb1G5M97vDdbzDOlnz0y34kkd6wYcbQ==}
+  asma-core-helpers@0.6.2:
+    resolution: {integrity: sha512-1twrqAb58D24vhLqGP7rAq4aorJm/NxYzvpKJ+qmz0UJwYLB5POjRtinSVajFJtkTxr57J3G245YWBh+8kkOlA==}
 
   asma-event-bus@0.7.48:
     resolution: {integrity: sha512-Gb64pl54xXBE00LyZa6JOwv1tz4Cpeohb+bdw8MhP/f+Y9l7ymrHJU6q5xmEw0fOKNQ2S4TYqJcPBuK/zO2rVA==}
@@ -1012,7 +1012,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  asma-core-helpers@0.6.0(typescript@6.0.2):
+  asma-core-helpers@0.6.2(typescript@6.0.2):
     dependencies:
       asma-event-bus: 0.7.48
       buffer: 6.0.3

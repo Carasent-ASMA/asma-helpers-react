@@ -1,5 +1,5 @@
 import type { ISearchParams, SearchParamWithValues } from 'asma-types';
-type ParamValue<K extends ISearchParams> = (typeof SearchParamWithValues)[K] | null;
+export type ParamValue<K extends ISearchParams> = (typeof SearchParamWithValues)[K] | null;
 /**
  * Returns the current value of a URL search parameter, reactive to navigation.
  *
@@ -17,5 +17,4 @@ type ParamValue<K extends ISearchParams> = (typeof SearchParamWithValues)[K] | n
  * const hide = useHideParam()
  */
 export declare const useParam: <K extends ISearchParams>(paramName: K) => ParamValue<K>;
-export {};
 //# sourceMappingURL=useParam.d.ts.map
